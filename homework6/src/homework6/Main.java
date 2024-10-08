@@ -7,16 +7,22 @@ public class Main {
 		int[] toBeSorted = RandomizedArray(1000, 0, 250000);
 		int[] forBubbleSort = CopyArray(toBeSorted);
 		int[] forSelectionSort = CopyArray(toBeSorted);
+		int[] forInsertionSort = CopyArray(toBeSorted);
 		long start = System.nanoTime();
 		BubbleSort(forBubbleSort);
 		long finish = System.nanoTime();
 		long timeElapsed = finish - start;
 		System.out.println("Bubble Sort took " + timeElapsed + " nanoseconds");
 		start = System.nanoTime();
-		SelectionSort(forBubbleSort);
+		SelectionSort(forSelectionSort);
 		finish = System.nanoTime();
 		timeElapsed = finish - start;
 		System.out.println("Selection Sort took " + timeElapsed + " nanoseconds");
+		start = System.nanoTime();
+		InsertionSort(forInsertionSort);
+		finish = System.nanoTime();
+		timeElapsed = finish - start;
+		System.out.println("Insertion Sort took " + timeElapsed + " nanoseconds");
 	}
 
 
@@ -74,6 +80,17 @@ public class Main {
 			temp = arr[i];
 			arr[i] = arr[smallestIndex];
 			arr[smallestIndex]=temp;
+		}
+	}
+	public static void InsertionSort(int[] arr) {
+		for(int i = 0; i < arr.length - 1; i++) {
+			int j = i + 1;
+			while(j > 0 && arr[j - 1] > arr[j]) {
+				int temp = arr[j];
+				arr[j] = arr[j - 1];
+				arr[j - 1] = temp;
+				j = j - 1;
+			}
 		}
 	}
 	public static int[] CopyArray(int[] arr) {
