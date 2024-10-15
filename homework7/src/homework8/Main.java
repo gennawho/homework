@@ -1,31 +1,41 @@
-package homework6;
+package homework8;
 import java.util.Random;
 
 public class Main {
 
 	public static void main(String[] args) {
-		int[] toBeSorted = RandomizedArray(1000, 0, 250000);
-		int[] forBubbleSort = CopyArray(toBeSorted);
-		int[] forSelectionSort = CopyArray(toBeSorted);
-		int[] forInsertionSort = CopyArray(toBeSorted);
+		int[] toBeSorted = RandomizedArray(10000000, 0, 10000000);
+		//int[] forBubbleSort = CopyArray(toBeSorted);
+		//int[] forSelectionSort = CopyArray(toBeSorted);
+		//int[] forInsertionSort = CopyArray(toBeSorted);
 		int[] forQuickSort = CopyArray(toBeSorted);
+		int[] forShellSort = CopyArray(toBeSorted);
 		long start = System.nanoTime();
-		quickSort(forQuickSort,0,forQuickSort.length-1);
 		//BubbleSort(forBubbleSort);
 		long finish = System.nanoTime();
 		long timeElapsed = finish - start;
-		/*System.out.println("Bubble Sort took " + timeElapsed + " nanoseconds");
+		//System.out.println("Bubble Sort took " + timeElapsed + " nanoseconds");
+		//start = System.nanoTime();
+		//SelectionSort(forSelectionSort);
+		//finish = System.nanoTime();
+		//timeElapsed = finish - start;
+		//System.out.println("Selection Sort took " + timeElapsed + " nanoseconds");
+		//start = System.nanoTime();
+		//InsertionSort(forInsertionSort);
+		//finish = System.nanoTime();
+		//timeElapsed = finish - start;
+		//System.out.println("Insertion Sort took " + timeElapsed + " nanoseconds");
 		start = System.nanoTime();
-		SelectionSort(forSelectionSort);
+		quickSort(forQuickSort,0,forQuickSort.length-1);
 		finish = System.nanoTime();
 		timeElapsed = finish - start;
-		System.out.println("Selection Sort took " + timeElapsed + " nanoseconds");
+		System.out.println("Quick Sort took " + timeElapsed + " nanoseconds");
 		start = System.nanoTime();
-		InsertionSort(forInsertionSort);
+		shellSort(forShellSort);
 		finish = System.nanoTime();
 		timeElapsed = finish - start;
-		System.out.println("Insertion Sort took " + timeElapsed + " nanoseconds");
-		*/
+		System.out.println("Shell Sort took " + timeElapsed + " nanoseconds");
+		
 	}
 
 
@@ -104,7 +114,7 @@ public class Main {
 		return copy;
 	}
 	public static void quickSort(int[] arr, int start, int end) {
-		if(start !=end) {
+		if(start < end) {
 			int pivot = sortAroundPivot(arr, start,end);
 			quickSort(arr,start,pivot-1);
 			quickSort(arr,pivot+1,end);
@@ -114,29 +124,60 @@ public class Main {
 	public static int sortAroundPivot(int[] arr, int start, int end) {
 		int mid =(start + end)/2;
 		int pivot = arr[mid];
-		while(start<end) {
-			while(arr[start]< pivot) {
+		while(true) {
+			while(arr[start] < pivot) {
 				start++;
 			}
-			while(arr[end]>=pivot) {
+			while(arr[end] > pivot) {
 				end--;
 			}
-			if(start!=end) {
+			if (start< end) {
 				int temp = arr[start];
 				arr[start] = arr[end];
 				arr[end] = temp;
+				start++;
+				end--;
 			}
-			if(arr[start] == pivot) {
-				mid = start;
-			}			
+			if (start >= end) {
+				return start;
+			}
 		}
-		return mid;
 	}
-	public static void shellSort() {
+	public static void shellSort(int[] arr) {
+		int k = 1;
+		int gaps = 2;
+		while (gaps < arr.length) {
+			gaps = gaps * 2;
+			k = k + 1;
+		}
+		gaps = gaps / 2; //1000 2^10=1024 k = 9 gap is 9
+		k = k - 1;
+		for(int i = k; i >= 0; i--) {
+			int gap = pow(2, i) -1;
+				for(int j = 0; j < gap; j++ ) {
+					sortOnInterval(arr, j, gap);
+				}
+		}
 		
 	}
-	public static void sortOnInterval() {
+	public static void sortOnInterval(int[] arr, int start, int gap) {
+		for(int i = start; i < arr.length - gap; i = i + gap) {
+			int j = i + gap;
+			while(j > start && arr[j - gap] >= arr[j]) {
+				int temp = arr[j];
+				arr[j] = arr[j - gap];
+				arr[j - gap] = temp;
+				j = j - gap;
+			}
+		}
 		
+	}
+	public static int pow(int base, int power) {
+		int result = 1;
+		for(int i = 0; i < power; i++) {
+			result = result * base;
+		}
+		return result;
 	}
 
 }
