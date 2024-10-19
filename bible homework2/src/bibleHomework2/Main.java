@@ -9,17 +9,19 @@ public class Main {
 		//each index holds the number of people of that age. 
 		//age can be found by the index times 3
 		long[] ChristianPopByAge = new long[23];
-		for(int i = 0; i < 1100000000; i++) {
-			int rand = r.nextInt(22);// randomly chooses age 
+		/*for(int i = 0; i < 1100000000; i++) {
+			int rand = r.nextInt(10);// randomly chooses age 
 			totalPopByAge[rand] += 7;
-		}
+		}*/
 		long totalPop=1100000000;
 		totalPop = totalPop * 7;
-		for(int i = 0; i < 13; i++) {
+		totalPopByAge[9] = totalPop;
+		/*for(int i = 0; i < 13; i++) {
 			int rand = r.nextInt(22-7)+7;//gives minimum age of 21
 			ChristianPopByAge[rand] += 1;
-		}
+		}*/
 		long disciples = 13;
+		ChristianPopByAge[9];
 		int years = SpreadChristianity(totalPopByAge, ChristianPopByAge,totalPop, disciples);
 		System.out.println(years);
 	}
@@ -46,7 +48,7 @@ public class Main {
 			years += 3;
 			StartDisciples = AgeUp(Christian,StartDisciples);
 			totalPop = AgeUp(Total,totalPop);	
-			long born = Total[10]/2;
+			long born = Total[10];
 			totalPop += born;
 			Total[0] = born;
 			
