@@ -12,7 +12,7 @@ public class Main {
 		list.Prepend(8);
 		list.Print();
 		
-		list.Sort(true);
+		list.Sort(false);
 		list.Print();
 	}
 

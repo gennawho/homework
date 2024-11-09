@@ -177,22 +177,23 @@ public class SinglyLinkedList {
 				}
 			}
 			else {
-				for(int i = 0; i<this.length;i++) {
+					for(int i = 0; i<this.length;i++) {
 					SinglyLinkedListNode node = this.header;
 					SinglyLinkedListNode preNode = null;
-					while(node!=null) {
-						if(node.payload < node.nextNode.payload) {
-							swap(node,preNode, node.nextNode, node);
+					while(node != null) {
+						if(node.nextNode!=null) {
+							if(node.payload < node.nextNode.payload) {
+								swap(node,preNode, node.nextNode, node);
+							}
 						}
 						preNode = node;
 						node = node.nextNode;
 					}
 				}
 			}
-		
-		}
-		
+		}	
 	}
+	
 	public void swap(SinglyLinkedListNode A,SinglyLinkedListNode preA, SinglyLinkedListNode B,SinglyLinkedListNode preB) {
 		 if(preA != null) {
 				 preA.nextNode = B;
