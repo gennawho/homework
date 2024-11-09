@@ -10,36 +10,38 @@ public class Main {
 		//age can be found by the index times 3
 		long[] ChristianPopByAge = new long[23];
 		/*for(int i = 0; i < 1100000000; i++) {
-			int rand = r.nextInt(10);// randomly chooses age 
+			int rand = r.nextInt(22-6)+6;// randomly chooses age 
 			totalPopByAge[rand] += 7;
 		}*/
-		long totalPop=1100000000;
-		totalPop = totalPop * 7;
-		totalPopByAge[9] = totalPop;
+		long totalPop=7700000000l;
+		
+		
 		/*for(int i = 0; i < 13; i++) {
-			int rand = r.nextInt(22-7)+7;//gives minimum age of 21
+			int rand = r.nextInt(23-7)+7;//gives minimum age of 21
 			ChristianPopByAge[rand] += 1;
 		}*/
 		long disciples = 13;
-		ChristianPopByAge[9];
+		totalPopByAge[6] = totalPop-disciples;
+		totalPopByAge[10] = disciples;
+		ChristianPopByAge[10] = disciples;
 		int years = SpreadChristianity(totalPopByAge, ChristianPopByAge,totalPop, disciples);
 		System.out.println(years);
 	}
 	public static int SpreadChristianity(long[] Total, long[] Christian, long totalPop, long StartDisciples) {
-		int years = 0;
-		while(totalPop > StartDisciples) {
+		int years = 2024;
+		while((StartDisciples) < totalPop-StartDisciples) {
 			long newDisciples = StartDisciples * 2;
 			for(int i = 22; i>6; i--) {
 				if(Christian[i]<Total[i]) {
 					long diff = Total[i]-Christian[i];
 					if(diff> newDisciples) {
-						Total[i] += newDisciples;
+						Christian[i] += newDisciples;
 						StartDisciples += newDisciples;
 						newDisciples = 0;
 						break;
 					}
 					else {
-						Total[i] += diff;
+						Christian[i] += diff;
 						newDisciples = newDisciples- diff;
 						StartDisciples += diff;
 					}
@@ -49,17 +51,19 @@ public class Main {
 			StartDisciples = AgeUp(Christian,StartDisciples);
 			totalPop = AgeUp(Total,totalPop);	
 			long born = Total[10];
-			totalPop += born;
 			Total[0] = born;
-			
-			System.out.println("After " + years + " years there are " + StartDisciples + " Christians out of " + totalPop + " people.");
+			totalPop += Total[6];
+			System.out.println("Year is: " + years);
+			System.out.println("total disciples: " + StartDisciples);
+			System.out.println("total Population: " + totalPop);
+			System.out.println();
 		}
 		return years;
 		
 	}
 	public static long AgeUp(long[] population, long total) {
-		total = total-population[population.length -1];
-		for(int i = population.length -1; i>1 ; i--) {
+		total = total - population[population.length -1];
+		for(int i = population.length -1; i>0 ; i--) {
 			population[i] = population[i-1];
 		}
 		population[0] = 0;
